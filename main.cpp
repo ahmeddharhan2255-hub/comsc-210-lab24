@@ -3,23 +3,23 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string [], string []);
+void display_trip(set<Goat> trip);
 int main_menu();
 
 int main() {
     srand(time(0));
     bool again;
     int choice = 0;
-    list<Goat> trip;
+    set<Goat> trip;
 
     // read & populate arrays for names and colors
     ifstream fin("names.txt");
@@ -85,7 +85,7 @@ int main_menu(){
 //Void function
 //Checks if empty; if not cout 
 //Returns nothing
-void display_trip(list<Goat> trip){
+void display_trip(set<Goat> trip){
     int val = 1;
     if(trip.empty()){
         cout << "List is empty!" << endl;
@@ -107,7 +107,7 @@ void display_trip(list<Goat> trip){
 //void delete goat that deletes selected goat
 //arguments: trip
 //reutrns none
-void delete_goat(list<Goat> &trip){
+void delete_goat(set<Goat> &trip){
 
     if(trip.empty()){
         cout << "List is empty! Nothing to delete" << endl;
@@ -134,14 +134,14 @@ void delete_goat(list<Goat> &trip){
 //void add_goat function
 //arguments: list, string of names and colors to rand select
 //returns nothing only updates list
-void add_goat(list<Goat> &trip, string names[], string colors[]){
+void add_goat(set<Goat> &trip, string names[], string colors[]){
     int age = rand() % (MAX_AGE + 1);
     string name = names[rand() % SZ_NAMES];
     string color = colors[rand() % SZ_COLORS];
 
     Goat g(name, age, color);
 
-    trip.push_back(g);
+    trip.insert(g);
 
     display_trip(trip);
 }
@@ -149,7 +149,7 @@ void add_goat(list<Goat> &trip, string names[], string colors[]){
 //select goat function
 //arguments: list
 //returns: goat position
-int select_goat(list<Goat> trip){
+int select_goat(set<Goat> trip){
     int goat_num;
 
     display_trip(trip);
